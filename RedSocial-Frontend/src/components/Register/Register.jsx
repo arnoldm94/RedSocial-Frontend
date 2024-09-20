@@ -1,26 +1,63 @@
-import React from "react";
 import "./Register.styles.scss";
-import { useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Form, Input, Button } from "antd";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { register } from "../../redux/auth/authSlice.js";
+import { notification } from "antd";
 
 const Register = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    age: "",
+    email: "",
+    password: "",
+  });
+  const { name, age, email, password } = formData;
+
+  const dispatch = useDispatch();
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    notification.success({
+      message: "Success",
+      description: "User registered!",
+    });
+    dispatch(register(formData));
+  };
+
   return (
     <div>
       <h1>Formulario de Registro</h1>
-      <p></p>
-      <label htmlFor="name">Nombre:</label>
-      <input type="text" id="name" name="name" required />
-      <p></p>
-      <label htmlFor="email">Correo Electrónico:</label>
-      <input type="email" id="email" name="email" required />
-      <p></p>
-      <label htmlFor="password">Contraseña:</label>
+      <form onSubmit={onSubmit}>
+        <input
+          type="text"
+          name="name"
+          placeholder="Ingresar nombre"
+          value={name}
+          onChange={onChange}
+        />
+        <input type="text" placeholder="Ingresar edad" name="age" value={age} onChange={onChange} />
+        <input
+          type="email"
+          placeholder="Ingresar email"
+          name="email"
+          value={email}
+          onChange={onChange}
+        />
+        <input
+          type="password"
+          placeholder="Ingresar una contraseña"
+          name="password"
+          value={password}
+          onChange={onChange}
+        />
 
-      <input type="password" id="password" name="password" required />
-      <p></p>
-
-      <button type="submit">Registrarse</button>
+        <button type="submit">Register</button>
+      </form>
     </div>
   );
 };
