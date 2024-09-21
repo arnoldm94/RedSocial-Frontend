@@ -3,8 +3,10 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { register } from "../../redux/auth/authSlice.js";
 import { notification } from "antd";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     age: "",
@@ -27,6 +29,10 @@ const Register = () => {
       description: "User registered!",
     });
     dispatch(register(formData));
+
+    setTimeout(() => {
+      navigate("/login");
+    }, 2000);
   };
 
   return (
