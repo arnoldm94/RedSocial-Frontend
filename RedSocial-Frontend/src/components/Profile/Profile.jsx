@@ -1,4 +1,6 @@
 import { useSelector } from "react-redux";
+import Posts from "../Posts/Posts";
+
 const Profile = () => {
   const { user } = useSelector((state) => state.auth);
 
@@ -7,6 +9,7 @@ const Profile = () => {
       <h1>Profile</h1>
       {<p>{user.name}</p>}
       <p>{user.email}</p>
+      <Posts></Posts>
     </>
   );
 };

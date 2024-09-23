@@ -1,11 +1,14 @@
 import "./Register.styles.scss";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { register } from "../../redux/auth/authSlice.js";
+import { register, reset } from "../../redux/auth/authSlice.js";
 import { notification } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { LineStrokeColorVar } from "antd/es/progress/style/index.js";
 
 const Register = () => {
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -15,24 +18,33 @@ const Register = () => {
   });
   const { name, age, email, password } = formData;
 
-  const dispatch = useDispatch();
+  const { isSuccess, message, isError } = useSelector((state) => state.auth);
 
   const onChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  useEffect(() => {
+    if (isSuccess) {
+      notification.success({
+        message: "Success",
+        description: message,
+      });
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    }
+    if (isError) {
+      notification.error({ message: "Error", description: message });
+    }
+    dispatch(reset());
+  }, [isSuccess, isError, message]);
+
   const onSubmit = (e) => {
     e.preventDefault();
-    notification.success({
-      message: "Success",
-      description: "User registered!",
-    });
-    dispatch(register(formData));
 
-    setTimeout(() => {
-      navigate("/login");
-    }, 2000);
+    dispatch(register(formData));
   };
 
   return (
