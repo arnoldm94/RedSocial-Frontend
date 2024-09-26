@@ -1,9 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
+import { like, unlikes } from "../../redux/posts/postsSlice";
 
 const Post = () => {
+  const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.posts);
+
+  const { user } = useSelector((state) => state.auth);
+
+  const commentlist = (comments) => {
+    for (let index = 0; index < comments.length; index++) {
+      return comments[index].body;
+    }
+  };
+  const likecounter = (likes) => {
+    return likes.length;
+  };
 
   return (
     <>
@@ -19,16 +33,22 @@ const Post = () => {
                   data-bs-target={`#collapse${index}`}
                   aria-expanded="true"
                   aria-controls={`collapse${index}`}
-                >
-                  <Link to={`/post/id/${post._id}`}>Post nº {index} </Link>
-                </button>
+                ></button>
+                <Link to={`/post/id/${post._id}`} className="nav-menu-link">
+                  {" "}
+                  {post.body}{" "}
+                </Link>
               </h2>
+
               <div
                 id={`collapse${index}`}
-                className="accordion-collapse collapse show"
+                className="accordion-collapse collapse "
                 data-bs-parent="#accordionExample"
               >
-                <div className="accordion-body">{post.body}</div>
+                <div className="accordion-body">Autor: {post.userId.name}</div>
+
+                <div className="accordion-body">likes: {likecounter(post.likes)}</div>
+                <div className="accordion-body">Comments: {commentlist(post.commentId)}</div>
               </div>
             </div>
           ))}

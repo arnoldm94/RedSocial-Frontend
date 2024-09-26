@@ -1,15 +1,20 @@
 import { useSelector } from "react-redux";
-import Posts from "../Posts/Posts";
+import ProfilePost from "./ProfilePosts";
+import "./Profile.styles.scss";
 
 const Profile = () => {
   const { user } = useSelector((state) => state.auth);
-
+  let identification = user.email;
   return (
     <>
-      <h1>Profile</h1>
-      {<p>{user.name}</p>}
-      <p>{user.email}</p>
-      <Posts></Posts>
+      <div className="container">
+        <h1>Perfil de {user.name}</h1>
+        <p>{user.email}</p>
+      </div>
+
+      <div className="container">
+        <ProfilePost usuario={identification}></ProfilePost>
+      </div>
     </>
   );
 };

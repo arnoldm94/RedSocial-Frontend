@@ -4,19 +4,24 @@ import { useParams } from "react-router-dom";
 import { getById } from "../../redux/posts/postsSlice";
 
 const PostDetail = () => {
-  const { id } = useParams();
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getById(_id));
+  }, []);
+  const { _id } = useParams();
+
   const { post } = useSelector((state) => state.posts);
 
-  useEffect(() => {
-    dispatch(getById(id));
-  }, []);
-
   return (
-    <div>
-      <h1>PostDetail</h1>
-      <p>{post.content}</p>
-    </div>
+    <>
+      {post && (
+        <div>
+          <h1>Post Detail</h1>
+          <div>{post.body}</div>
+          <div>{post.createdAt}</div>
+        </div>
+      )}
+    </>
   );
 };
 

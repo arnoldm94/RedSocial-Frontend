@@ -13,6 +13,7 @@ const Posts = () => {
     };
     fetchPosts();
   }, [dispatch]);
+
   return <>{isLoading ? "Cargando..." : <Post />}</>;
 };
 export default Posts;
