@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getById } from "../../redux/posts/postsSlice";
+import { getById } from "../../redux/Posts/postsSlice.js";
 
 const PostDetail = () => {
   const dispatch = useDispatch();
@@ -14,13 +14,13 @@ const PostDetail = () => {
 
   return (
     <>
-      {post && (
-        <div>
-          <h1>Post Detail</h1>
-          <div>{post.body}</div>
-          <div>{post.createdAt}</div>
-        </div>
-      )}
+      <h1>Post Detail</h1>
+      <h4>{post.body}</h4>
+      <h6>Likes: {post.likes.length}</h6>
+      <div>
+        Creado por: {post.userId.name} || {post.userId.email}
+      </div>
+      <div>Fecha de publicación: {post.createdAt}</div>
     </>
   );
 };

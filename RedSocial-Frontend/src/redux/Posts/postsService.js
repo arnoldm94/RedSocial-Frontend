@@ -11,6 +11,7 @@ const getById = async (_id) => {
   const res = await axios.get(`${API_URL}/post/id/${_id}`);
   return res.data;
 };
+
 const like = async (_id) => {
   const token = JSON.parse(localStorage.getItem("token"));
   const res = await axios.post(

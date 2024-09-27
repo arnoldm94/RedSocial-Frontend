@@ -26,7 +26,7 @@ const ProfilePost = (props) => {
 
     if (props.usuario == item.userId.email) {
       return (
-        <div className="container" key={item._id}>
+        <div className="container individual" key={item._id}>
           <h2>
             {" "}
             <Link to={`/post/id/${item._id}`} className="nav-menu-link">
