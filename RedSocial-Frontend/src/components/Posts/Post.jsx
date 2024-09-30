@@ -71,7 +71,7 @@ const Post = (props) => {
                 )}
               </div>
             ) : (
-              <div>nada</div>
+              <div></div>
             )}
             <div className="accordion-body">Comments: {commentlist(post.commentId)}</div>
           </div>
