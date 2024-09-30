@@ -4,6 +4,8 @@ import { login, reset } from "../../redux/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { notification } from "antd";
 
+import "./Login.styles.scss";
+
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -38,11 +40,38 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <input type="email" name="email" value={email} onChange={onChange} />
-      <input type="password" name="password" value={password} onChange={onChange} />
-      <button type="submit">Login</button>
-    </form>
+    <div>
+      <h1>Login</h1>
+      <form onSubmit={onSubmit} className="allForm">
+        <ul class="wrapper">
+          <li className="individuallabelinput">
+            <div className="tipolabel">Ingresa tu nombre de usuario: </div>
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={onChange}
+              className="inputIndividual"
+            />
+          </li>
+          <li className="individuallabelinput">
+            <div className="tipolabel">Ingresa tu clave: </div>
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={onChange}
+              className="inputIndividual"
+            />
+          </li>
+          <li>
+            <button type="submit" className="botonSubmit">
+              Login
+            </button>
+          </li>
+        </ul>
+      </form>
+    </div>
   );
 };
 export default Login;

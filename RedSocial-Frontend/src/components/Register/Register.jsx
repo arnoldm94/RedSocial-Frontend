@@ -50,31 +50,58 @@ const Register = () => {
   return (
     <div>
       <h1>Formulario de Registro</h1>
-      <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Ingresar nombre"
-          value={name}
-          onChange={onChange}
-        />
-        <input type="text" placeholder="Ingresar edad" name="age" value={age} onChange={onChange} />
-        <input
-          type="email"
-          placeholder="Ingresar email"
-          name="email"
-          value={email}
-          onChange={onChange}
-        />
-        <input
-          type="password"
-          placeholder="Ingresar una contraseña"
-          name="password"
-          value={password}
-          onChange={onChange}
-        />
-
-        <button type="submit">Register</button>
+      <form onSubmit={onSubmit} className="allForm">
+        <ul class="wrapper">
+          <li class="form-row">
+            <div className="tipolabel">Nombre: </div>
+            <input
+              type="text"
+              name="name"
+              placeholder="Ingresar nombre"
+              value={name}
+              onChange={onChange}
+              className="inputIndividual"
+            />
+          </li>
+          <li className="form-row">
+            <div className="tipolabel">Edad: </div>
+            <input
+              type="text"
+              placeholder="Ingresar edad"
+              name="age"
+              value={age}
+              onChange={onChange}
+              className="inputIndividual"
+            />
+          </li>
+          <li className="form-row">
+            <div className="tipolabel">Email: </div>
+            <input
+              type="email"
+              placeholder="Ingresar email"
+              name="email"
+              value={email}
+              onChange={onChange}
+              className="inputIndividual"
+            />
+          </li>
+          <li className="form-row">
+            <div className="tipolabel">Contraseña: </div>
+            <input
+              type="password"
+              placeholder="Ingresar una contraseña"
+              name="password"
+              value={password}
+              onChange={onChange}
+              className="inputIndividual"
+            />
+          </li>
+          <li className="form-row">
+            <button type="submit" className="botonSubmit">
+              Register
+            </button>
+          </li>
+        </ul>
       </form>
     </div>
   );
