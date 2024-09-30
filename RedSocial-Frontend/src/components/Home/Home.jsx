@@ -7,7 +7,9 @@ const Home = () => {
     <>
       <h1>Red Social - Arnold</h1>
 
-      <Posts />
+      <div className="title">
+        <Posts />
+      </div>
 
       <div id="carouselExample" className="carousel slide">
         <div className="carousel-inner">

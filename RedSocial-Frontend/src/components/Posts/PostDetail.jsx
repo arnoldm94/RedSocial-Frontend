@@ -9,18 +9,27 @@ const PostDetail = () => {
     dispatch(getById(_id));
   }, []);
   const { _id } = useParams();
-
-  const { post } = useSelector((state) => state.posts);
+  const { posts } = useSelector((state) => state.posts);
+  /*   const { post } = useSelector((state) => state.posts); */
 
   return (
     <>
       <h1>Post Detail</h1>
-      <h4>{post.body}</h4>
-      <h6>Likes: {post.likes.length}</h6>
-      <div>
-        Creado por: {post.userId.name} || {post.userId.email}
-      </div>
-      <div>Fecha de publicación: {post.createdAt}</div>
+
+      {posts.map((item, index) => {
+        if (item._id == _id) {
+          return (
+            <div key={index}>
+              <h4>{item.body}</h4>
+              <h6>Likes: {item.likes.length}</h6>
+              <div>
+                Creado por: {item.userId.name} || {item.userId.email}
+              </div>
+              <div>Fecha de publicación: {item.createdAt}</div>
+            </div>
+          );
+        }
+      })}
     </>
   );
 };
