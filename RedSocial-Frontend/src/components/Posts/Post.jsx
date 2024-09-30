@@ -26,8 +26,6 @@ const Post = (props) => {
   };
 
   const post = posts.map((post, item) => {
-    const isAlreadyLiked = post.likes.includes(user._id);
-
     return (
       <div key={item} className="accordion" id="accordionExample">
         <div className="accordion-item">
@@ -54,22 +52,28 @@ const Post = (props) => {
             <div className="accordion-body">Autor: {post.userId.name}</div>
 
             <div className="accordion-body">likes: {likecounter(post.likes)}</div>
-            <div className="accordion-body">Comments: {commentlist(post.commentId)}</div>
-            {isAlreadyLiked ? (
-              <HeartFilled
-                onClick={() => {
-                  dispatch(unlikes(post._id));
-                  likecounter(post.likes);
-                }}
-              />
+            {user ? (
+              <div>
+                {post.likes.includes(user._id) ? (
+                  <HeartFilled
+                    onClick={() => {
+                      dispatch(unlikes(post._id));
+                      likecounter(post.likes);
+                    }}
+                  />
+                ) : (
+                  <HeartOutlined
+                    onClick={() => {
+                      dispatch(like(post._id));
+                      likecounter(post.likes);
+                    }}
+                  />
+                )}
+              </div>
             ) : (
-              <HeartOutlined
-                onClick={() => {
-                  dispatch(like(post._id));
-                  likecounter(post.likes);
-                }}
-              />
+              <div>nada</div>
             )}
+            <div className="accordion-body">Comments: {commentlist(post.commentId)}</div>
           </div>
         </div>
       </div>
