@@ -1,7 +1,6 @@
 import React from "react";
 import "./Home.styles.scss";
 import Posts from "../Posts/Posts";
-import Card from "../Posts/Card";
 
 const Home = () => {
   return (
@@ -9,7 +8,6 @@ const Home = () => {
       <h1>Red Social - Arnold</h1>
       <div className="title">
         <Posts />
-        <Card />
       </div>
     </>
   );

@@ -1,7 +1,7 @@
 import Post from "./Post";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getAll, reset } from "../../redux/Posts/postsSlice";
+import { getAll, reset } from "../../redux/posts/postsSlice";
 
 const Posts = () => {
   const { isLoading } = useSelector((state) => state.posts);
