@@ -32,84 +32,57 @@ const Post = (props) => {
     return likes.length;
   };
 
-  const card = (
-    <React.Fragment>
-      <CardContent>
-        <Typography gutterBottom sx={{ color: "text.secondary", fontSize: 14 }}>
-          fxgx
-        </Typography>
-        <Typography variant="h5" component="div">
-          sds
-        </Typography>
-        <Typography sx={{ color: "text.secondary", mb: 1.5 }}>adjective</Typography>
-        <Typography variant="body2">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </React.Fragment>
-  );
-
   const post = posts.map((post, item) => {
     return (
-      <>
+      <div key={item}>
         <Box sx={{ minWidth: 275 }}>
-          <Card variant="outlined">{card}</Card>
+          <Card variant="outlined">
+            <CardContent>
+              <Typography variant="h3" sx={{ color: "text.secondary", mb: 3 }}>
+                <Link to={`/post/id/${post._id}`} className="nav-menu-link">
+                  {post.body.charAt(0).toUpperCase() + post.body.slice(1)}
+                </Link>
+              </Typography>
+              <Typography gutterBottom sx={{ color: "text.secondary", fontSize: 14 }}>
+                Autor:{" "}
+                {post.userId.name
+                  .split(" ")
+                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(" ")}
+              </Typography>
+              <Typography variant="body3" component="div">
+                {user ? (
+                  <div>
+                    {post.likes.includes(user._id) ? (
+                      <HeartFilled
+                        onClick={() => {
+                          dispatch(unlikes(post._id));
+                          likecounter(post.likes);
+                        }}
+                      />
+                    ) : (
+                      <HeartOutlined
+                        onClick={() => {
+                          dispatch(like(post._id));
+                          likecounter(post.likes);
+                        }}
+                      />
+                    )}
+                  </div>
+                ) : (
+                  <div></div>
+                )}
+              </Typography>
+              <Typography sx={{ color: "text.secondary", mb: 1.5 }}>
+                Likes: {likecounter(post.likes)}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button size="small">Comments: {commentlist(post.commentId)}</Button>
+            </CardActions>
+          </Card>
         </Box>
-        <div key={item} className="accordion" id="accordionExample">
-          <div className="accordion-item">
-            <h2 className="accordion-header">
-              <Link to={`/post/id/${post._id}`} className="nav-menu-link">
-                {post.body}
-              </Link>
-              <DownCircleOutlined
-                className="button"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target={`#collapse${item}`}
-                aria-expanded="true"
-                aria-controls={`collapse${item}`}
-              ></DownCircleOutlined>
-            </h2>
-
-            <div
-              id={`collapse${item}`}
-              className="accordion-collapse collapse "
-              data-bs-parent="#accordionExample"
-            >
-              <div className="accordion-body">Autor: {post.userId.name}</div>
-
-              <div className="accordion-body">likes: {likecounter(post.likes)}</div>
-              {user ? (
-                <div>
-                  {post.likes.includes(user._id) ? (
-                    <HeartFilled
-                      onClick={() => {
-                        dispatch(unlikes(post._id));
-                        likecounter(post.likes);
-                      }}
-                    />
-                  ) : (
-                    <HeartOutlined
-                      onClick={() => {
-                        dispatch(like(post._id));
-                        likecounter(post.likes);
-                      }}
-                    />
-                  )}
-                </div>
-              ) : (
-                <div></div>
-              )}
-              <div className="accordion-body">Comments: {commentlist(post.commentId)}</div>
-            </div>
-          </div>
-        </div>
-      </>
+      </div>
     );
   });
 
